@@ -9,18 +9,18 @@ class UsersController < ApplicationController
   end
 
   def create
-     @user = User.new(user_params)    # Not the final implementation!
-     if @user.save
-      # Handle a successful save.
-      flash[:success] = "Welcome to the Close Job!"
-       redirect_to @user
+    @user = User.new(user_params)
+    if @user.save
+      log_in @user
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to @user
     else
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
     end
   end
 
-
-    private
+  private
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
