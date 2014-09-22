@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140914201113) do
+ActiveRecord::Schema.define(version: 20140921223854) do
+
+  create_table "locations", force: true do |t|
+    t.string   "encoded_name"
+    t.string   "name"
+    t.integer  "search_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "locations", ["search_id"], name: "index_locations_on_search_id" 
+
+
+  create_table "searches", force: true do |t|
+    t.string   "query"
+    t.string   "encoded_query"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

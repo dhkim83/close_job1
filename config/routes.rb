@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'searches/new'
+
+  get 'searches/show'
+
   get 'account_activations/edit'
 
   get 'sessions/new'
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :account_activations, only: [:edit]
+  resources :searches, :only => [:new, :create, :show] 
 end
 
   # The priority is based upon order of creation: first created -> highest priority.
