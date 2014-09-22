@@ -12,6 +12,8 @@
 # Ignore other unneeded files.
 database.yml
 constants.rb
+secret.yml
+secrets.yml
 doc/
 *.swp
 *~
