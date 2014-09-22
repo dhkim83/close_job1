@@ -22,4 +22,4 @@ doc/
 # Ignore Spring files.
 /spring/*.pid
 
-constants.rb
+/constants.rb
