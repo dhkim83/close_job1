@@ -11,6 +11,7 @@
 
 # Ignore other unneeded files.
 database.yml
+constants.rb
 doc/
 *.swp
 *~
@@ -21,5 +22,3 @@ doc/
 
 # Ignore Spring files.
 /spring/*.pid
-
-/constants.rb
