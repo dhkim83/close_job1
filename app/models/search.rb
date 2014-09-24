@@ -13,7 +13,10 @@ class Search < ActiveRecord::Base
     self.locations.each do |loc|
       results_in_loc = self.call_api(loc)
       results_in_loc.each do |item| 
-        results << self.simplify(item)
+        indeedItem = self.simplify(item)
+        indeedItem["travelTime"] = call_walkscore_api(indeedItem["latitude"], indeedItem["longitude"])
+
+        results << indeedItem
       end
     end
     results.ensure_uniq.sort_by_date
@@ -53,9 +56,33 @@ class Search < ActiveRecord::Base
     json = JSON.parse(page)
     json["results"]
   end
+
+  def call_walkscore_api(latitude, longitude)
+    # uri_walkjscore = URI.parse("#{BASE_URI2}?wsapikey=#{WS_API_KEY2}&q=#{queryString2}&l=#{loc.encoded_name}#{END_OF_URI2}")
+    uri_walkjscore = URI.parse("http://api2.walkscore.com/api/v1/traveltime/json?wsapikey=94db5d1a5e559d9e830fea3894f9d6e0&mode=walk&origin=34.013579,%20-118.495999&destination=#{latitude},#{longitude}")
+    puts uri_walkjscore
+    puts "*****"
+    puts latitude
+    puts longitude
+    puts "*****"
+
+
+    pagetwo = Net::HTTP.get(uri_walkjscore)
+    puts pagetwo
+    @api_call_count ||= 0
+    @api_call_count += 1 unless pagetwo.nil? or pagetwo.empty?
+    json = JSON.parse(pagetwo)
+    # puts "json:::"
+    # puts json["response"]["results"][0]["travel_times"]["seconds"]
+    json["response"]["results"][0]["travel_times"]#["seconds"].first
+  end
   
   # this is no longer needed
   def debug_crazy(loc)
     uri = "#{BASE_URI}?publisher=#{API_KEY}&q=#{self.encoded_query}&l=#{loc.encoded_name}#{END_OF_URI}"
   end
 end
+
+
+
+
