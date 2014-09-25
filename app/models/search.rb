@@ -59,7 +59,7 @@ class Search < ActiveRecord::Base
 
   def call_walkscore_api(latitude, longitude)
     # uri_walkjscore = URI.parse("#{BASE_URI2}?wsapikey=#{WS_API_KEY2}&q=#{queryString2}&l=#{loc.encoded_name}#{END_OF_URI2}")
-    uri_walkjscore = URI.parse("http://api2.walkscore.com/api/v1/traveltime/json?wsapikey=94db5d1a5e559d9e830fea3894f9d6e0&mode=walk&origin=34.013579,%20-118.495999&destination=#{latitude},#{longitude}")
+    uri_walkjscore = URI.parse("http://api2.walkscore.com/api/v1/traveltime/json?wsapikey=94db5d1a5e559d9e830fea3894f9d6e0&mode=drive&congestion=1&origin=34.013579,%20-118.495999&destination=#{latitude},#{longitude}")
     puts uri_walkjscore
     puts "*****"
     puts latitude

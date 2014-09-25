@@ -1,34 +1,33 @@
-<div id="titlebar" class="logo">
+<div id="big-logo" class="logo">
 <h2>Indeed Job Search</h2>
-</div>
-
-<div id="main">
 
 <%= render 'form' %>
 
-<% if flash[:notice] %>
-<p class="flash-notice"><%= flash[:notice] %></p>
-<% end %>
 
-<div id="results">
-<% if @results.empty? %>
-<p class="error message"><%= NO_RESULTS_ERROR_MSG %></p>
-<% else %>
-<%= cache do %>
+    <% if flash[:notice] %>
+      <%= flash[:notice] %>
+    <% end %>
+
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <% if @results.empty? %>
+      <%= NO_RESULTS_ERROR_MSG %>
+    <% else %>
+      <%= cache do %>
 <!-- h6 >Search Results:< /h6 -->
 
-<% @results.each do |r| %>
-  <p class="result">
-  <span class="job-title"><%= link_to r["jobtitle"], r["url"] %></span><br />
-  <span class="company"><%= r["company"] %></span> - <span class="location"><%= r["formattedLocation"] %></span><br />
-  <span class="snippet"><%= sanitize(raw r["snippet"]) %></span><br />
-  <span class="latitude"><%= r["latitude"] %></span> , <span class="longitude"><%= r["longitude"] %></span><br />
-  <%= r["source"] %> - <%= r["formattedRelativeTime"] %><br />
-  </p>
-  <p><%= r["travelTime"][0]["seconds"] %> seconds</p>
+        <% @results.each do |r| %>
 
-<% end %>
-<% end %>
-<% end %>
-</div>
+            <h3 class="job-title"><%= link_to r["jobtitle"], r["url"] %></h3><br />
+            <h3 class="company"><%= r["company"] %></h3> - <h3 class="location"><%= r["formattedLocation"] %></h3><br />
+            <p class="snippet"><%= sanitize(raw r["snippet"]) %></p><br />
+            <p class="latitude"><%= r["latitude"] %></p> , <p class="longitude"><%= r["longitude"] %></p><br />
+            <%= r["source"] %> - <%= r["formattedRelativeTime"] %><br />
+          <p><%= r["travelTime"][0]["seconds"] %> seconds to commute by car</p>
+
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
 </div>

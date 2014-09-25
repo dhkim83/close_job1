@@ -21,9 +21,6 @@ ActiveRecord::Schema.define(version: 20140921223854) do
     t.datetime "updated_at"
   end
 
-  add_index "locations", ["search_id"], name: "index_locations_on_search_id" 
-
-
   create_table "searches", force: true do |t|
     t.string   "query"
     t.string   "encoded_query"
